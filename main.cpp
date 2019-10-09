@@ -1,6 +1,12 @@
 #include <iostream>
+#include <algorithm>
 #include "grouplearning.h"
+using namespace Dylearning;
+using namespace std;
+
 int main() {
-    std::cout << "Let's start!" << std::endl;
+    int a = rand()%10;
+
+    std::cout << a << std::endl;
     return 0;
 }

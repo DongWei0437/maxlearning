@@ -3,4 +3,4 @@ project(maxlearning)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(maxlearning main.cpp grouplearning.h)
+add_executable(maxlearning main.cpp grouplearning.h random_workers.h)
