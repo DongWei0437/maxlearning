@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class grouplearning {
+class grouplearning{
     pair<float, vector<float>> improve(vector<vector<float>> gs){
         vector<float> res;
         vector<vector<float>> gsCopy(gs.size(),vector<float>(gs[0].size(),0.0));
@@ -112,7 +112,7 @@ class grouplearning {
             pair<float, vector<float>> tr1 = improve(g1);
             pair<float, vector<float>> tr2 = improve(g2);
             vector<float> curGrp= tr1.first<tr2.first?tr2.second:tr1.second;
-            float curT =0.0;
+            curT =0.0;
             for(auto i: curGrp){
                 curT +=i;
             }
