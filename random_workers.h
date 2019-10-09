@@ -1,6 +1,8 @@
 //
 // Created by dongwei on 10/9/19.
 //
+#ifndef MAXLEARNING_RANDOM_WORKERS_H
+#define MAXLEARNING_RANDOM_WORKERS_H
 #include <vector>
 #include <cstdlib>
 #include <math.h>
@@ -8,11 +10,31 @@
 #include <random>
 #include <assert.h>
 #include <curses.h>
-
 using namespace std;
-#ifndef MAXLEARNING_RANDOM_WORKERS_H
-#define MAXLEARNING_RANDOM_WORKERS_H
+
+
 namespace random_w{
+    int zipf(double alpha, int n);
+    vector<float> rWorkers_logNormal(int n,double std){
+        default_random_engine generator;
+        normal_distribution<double> distribution(0.0,std);
+        vector<float> res;
+        for(int i =0;i<n;i++){
+            float t = (float)distribution(generator);
+            t =exp(t);
+            res.push_back(t);
+        }
+        return res;
+    }
+    vector<float> rWorkers_zipf(int n){
+        vector<float> res;
+        for(int i =0;i<n;i++){
+            int t =(float)zipf(1.0,10);
+            res.push_back(t);
+        }
+        return res;
+    }
+
     int zipf(double alpha, int n)
     {
         static int first = TRUE;      // Static first time flag
@@ -65,29 +87,6 @@ namespace random_w{
         assert((zipf_value >=1) && (zipf_value <= n));
 
         return(zipf_value);
-    }
-
-
-
-
-    vector<double> rWorkers_logNormal(int n,double std){
-        default_random_engine generator;
-        normal_distribution<double> distribution(0.0,std);
-        vector<double> res;
-        for(int i =0;i<n;i++){
-            double t = distribution(generator);
-            t =exp(t);
-            res.push_back(t);
-        }
-        return res;
-    }
-    vector<int> rWorkers_zipf(int n){
-        vector<int> res;
-        for(int i =0;i<n;i++){
-            int t =zipf(1.0,10);
-            res.push_back(t);
-        }
-        return res;
     }
 }
 

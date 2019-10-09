@@ -14,6 +14,11 @@ namespace Dylearning{
         pair<float, vector<float>> improve(vector<vector<float>> gs){
             vector<float> res;
             vector<vector<float>> gsCopy(gs.size(),vector<float>(gs[0].size(),0.0));
+            for(int i =0;i < gs.size(); i++){
+                for(int j =0; j<gs[0].size();j++){
+                    gsCopy[i][j] = gs[i][j];
+                }
+            }
             for(int k =0;k<gs.size();k++){
                 sort(gs[k].begin(),gs[k].end());
                 for(int i =0; i<gs[k].size()-1;i++){
@@ -28,9 +33,11 @@ namespace Dylearning{
             }
             sort(res.begin(),res.end());
             float total =0;
-            for(auto i: res){
-                total+= i;
-            }
+//            for(auto i: res){
+//                cout<<i<<'\t';
+//                total+= i;
+//            }
+//            cout<<"\n\n";
             return {total,res};
         }
 
@@ -55,7 +62,7 @@ namespace Dylearning{
                     vector<float> temp;
                     for(int j =0; j<(n/k)/2;j++){
                         temp.push_back(people[i*((n/k)/2)+j]);
-                        temp.push_back(people[n-i*((n/k)/2)-j]-1);
+                        temp.push_back(people[n-i*((n/k)/2)-j-1]);
                     }
                     res.push_back(temp);
                 }
@@ -92,17 +99,28 @@ namespace Dylearning{
             float epsilon =0.05;
             float preT =0;
             for(auto i: people){
+                //cout<<i<<"\t";
                 preT +=i;
             }
+            cout<<endl;            cout<<endl;
             vector<vector<float>> g1 = grouping_1(people,k);
             vector<vector<float>> g2 = grouping_2(people,k);
+//            for(auto i:g2){
+//                for(auto j :i){
+//                    cout<<j<<"\t";
+//                }
+//            }
+//            cout<<endl;
             pair<float, vector<float>> tr1 = improve(g1);
             pair<float, vector<float>> tr2 = improve(g2);
             vector<float> curGrp= tr1.first<tr2.first?tr2.second:tr1.second;
             float curT =0.0;
             for(auto i: curGrp){
+                //cout<<i<<"\t";
                 curT +=i;
             }
+            //cout<<curT<<" curT"<<endl;
+            //cout<<preT<<" preT"<<endl;
             while(curT - preT>epsilon){
                 iter +=1;
                 preT = curT;
